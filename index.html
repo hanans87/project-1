@@ -1,60 +1,40 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+
+
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tic Tac Toe (: </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"		rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lobster|Comfortaa:700,400" 			rel='stylesheet' type='text/css'>
+<link href="main.css" rel="stylesheet" type='text/css'>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-        crossorigin="anonymous">
 
+  <title>Let's Play</title>
 
 </head>
-
 <body>
-    <header>
-        <h1>Tic Tac Toe</h1>
-
-    </header>
-
-
-
-    <div>
-        <button> reset </button>
-    </div>
-
-    <section>
-        <p id='message'></p>
-        <table>
-
-            <tr>
-                <td class="cell" id ="0"></td>
-                <td class="cell"id ="1"></td>
-                <td class="cell"id ="2"></td>
-            </tr>
-            <tr>
-                <td class="cell" id ="3"></td>
-                <td class="cell" id ="4"></td>
-                <td class="cell" id ="5"></td>
-            </tr>
-            <tr>
-                <td class="cell" id = "6"></td>
-                <td class="cell" id ="7"></td>
-                <td class="cell" id= "8"></td>
-            </tr>
-        </table>
-
-
-    </section>
-    <footer>
-        <P> Copy right by Hanan Alqahtani </P>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="main.js"></script>
-
+<div class="container">
+<div class="row text-center" id="intro-section">
+  <h1>Player vs Computer Tic-Tac-Toe</h1>
+  <h2 class="message">Choose your player:</h2>
+  <form action="#">
+  <fieldset>
+    <input type="radio" name="player-choice" id="player-choice-1" value="X" />
+    <label for="player-choice-1">X</label>
+    <input type="radio" name="player-choice" id="player-choice-2" value="O" />
+    <label for="player-choice-2">O</label>
+  </fieldset>
+  <button id="reset" class="btn btn-primary">Reset</button>
+  </form>  
+</div>
+<div class="row" id="grid-section">
+  <ul id="grid"></ul>
+  
+</div>
+<script src="main.js"></script>
+</div>
 </body>
+<footer>&copy; Copyright 2019 Hanan AlQahtani </footer>
 
 </html>

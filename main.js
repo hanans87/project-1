@@ -1,135 +1,119 @@
 
-// 1 -//select the element//wait for click//when click happins 
-//     2 -// add class = cells/box///
-//     3 -//$('.cell')//$("td")
-//     4 -//$('cell').on('click',cellclicked)
-//     5 -// make cell clicked function
-//     // function cellClicked(){
+var grid = document.getElementById('grid');
+var msg = document.querySelector('.message');
+var chooser = document.querySelector('form');
+var mark;
+var cells;
 
+// add click listener to radio buttons
+function setPlayer() {
+  mark = this.value;
+  msg.textContent = mark + ', click on a square to make your move!';
+  chooser.classList.add('game-on');
+  this.checked = false;
+  makeGrid();
+}
 
-var turn = "X"
-function cellClicked(event) {
-    // if the square is empty
-    if ($(event.target).text() === ''){
-        // add turn to square
-        $(event.target).text(turn)
-        // check for winner
-        winnerList()
-        // change turn
-        if (turn === "X"){
-            turn ="O"
-        } else{
-            turn ="X";
-        }
+// add click listener to each cell
+function playerMove() {
+  if (this.textContent == '') {
+    this.textContent = mark;
+    checkRow();
+    changMark();
+    computerMove();
+  }
+}
+
+// let the computer make the next move
+function computerMove() {
+  var selectCells = [];
+  var random;
+  
+  cells.forEach(function(cell){
+    if (cell.textContent == '') {
+      selectCells.push(cell);
     }
- 
+  });
+  
+  // computer marks a random EMPTY cell
+  random = Math.ceil(Math.random() * selectCells.length) - 1;
+  selectCells[random].textContent = mark;
+  checkRow();
+  changMark();
 }
-$(".cell").on("click", cellClicked)
 
-function listCheck() {
-   /**  var move = ("#")
-    moveCount = "0" + "1" + "2" + "3" + "4" + "5" + "6" + "7" + "8" 
-    if(moveCount == 9) {
-        reset()
-        alert ("reset!") */
+// switch player mark
+function changMark() {
+  if (mark == 'X') {
+    mark = 'O';
+  } else {
+    mark = 'X';
+  }
+}
 
-        if 
-        ( $('#0').text() !== "" &&
-        $('#1').text() !== "" &&
-        $('#2').text() !== ""&&
-       $('#3').text() !== "" &&
-       $('#4').text() !== "" &&
-        $('#5').text() !== "" &&
-        $('#6').text() !== ""&&
-        $('#7').text() !== "" &&
-        $('#8').text() !== "" ){
-
-$('.cell').text('');
-        }
-        
+// determine a winner
+function winner(a, b, c) {
+  if (a.textContent == mark && b.textContent == mark && c.textContent == mark) {
     
+    a.classList.add('winner');
+    b.classList.add('winner');
+    c.classList.add('winner');
+    alert(mark + ' is the winner!');
+	resetGrid();
+    return true;
+    
+   
+  } else {
+    return false;
+  }
 }
 
-function winnerList() {
-    if ($('#0').text() === "X" &&
-        $('#1').text() === "X" &&
-        $('#2').text() === "X"
-    ) { $('#message').text("winner!!") }
-    else if (
-        $('#3').text() === "X" &&
-        $('#4').text() === "X" &&
-        $('#5').text() === "X"
-    ) { $('#message').text("winner!!") }
-    else if (
-        $('#6').text() === "X" &&
-        $('#7').text() === "X" &&
-        $('#8').text() === "X"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#0').text() === "X" &&
-        $('#3').text() === "X" &&
-        $('#6').text() === "X"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#1').text() === "X" &&
-        $('#4').text() === "X" &&
-        $('#7').text() === "X"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#2').text() === "X" &&
-        $('#5').text() === "X" &&
-        $('#8').text() === "X"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#2').text() === "X" &&
-        $('#4').text() === "X" &&
-        $('#6').text() === "X"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#8').text() === "X" &&
-        $('#4').text() === "X" &&
-        $('#0').text() === "X"
-    ) { $('#message').text("Winner!!") }
-    else if
-        ($('#0').text() === "O" &&
-        $('#1').text() === "O" &&
-        $('#2').text() === "O"
-    ) { $('#message').text("winner!!") }
-    else if (
-        $('#3').text() === "O" &&
-        $('#4').text() === "O" &&
-        $('#5').text() === "O"
-    ) { $('#message').text("winner!!") }
-    else if (
-        $('#6').text() === "O" &&
-        $('#7').text() === "O" &&
-        $('#8').text() === "O"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#0').text() === "O" &&
-        $('#3').text() === "O" &&
-        $('#6').text() === "O"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#1').text() === "O" &&
-        $('#4').text() === "O" &&
-        $('#7').text() === "O"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#2').text() === "O" &&
-        $('#5').text() === "O" &&
-        $('#8').text() === "O"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#2').text() === "O" &&
-        $('#4').text() === "O" &&
-        $('#6').text() === "O"
-    ) { $('#message').text("Winner!!") }
-    else if (
-        $('#8').text() === "O" &&
-        $('#4').text() === "O" &&
-        $('#0').text() === "O"
-    ) { $('#message').text("Winner!!") }
+// check cell combinations 
+function checkRow() {
+  winner(document.getElementById('c1'), document.getElementById('c2'), document.getElementById('c3'));
+  winner(document.getElementById('c4'), document.getElementById('c5'), document.getElementById('c6'));
+  winner(document.getElementById('c7'), document.getElementById('c8'), document.getElementById('c9'));
+  winner(document.getElementById('c1'), document.getElementById('c4'), document.getElementById('c7'));
+  winner(document.getElementById('c2'), document.getElementById('c5'), document.getElementById('c8'));
+  winner(document.getElementById('c3'), document.getElementById('c6'), document.getElementById('c9'));
+  winner(document.getElementById('c1'), document.getElementById('c5'), document.getElementById('c9'));
+  winner(document.getElementById('c3'), document.getElementById('c5'), document.getElementById('c7'));
 }
 
+// clear the grid
+function resetGrid() {
+  mark = 'X';
+  cells.forEach(function(cell){
+    cell.textContent = '';
+    cell.classList.remove('winner');
+  });
+  msg.textContent = 'Choose your player:';
+  chooser.classList.remove('game-on');
+  grid.innerHTML = '';
+}
 
+// build the grid
+function makeGrid() 
+{
+  for (var i = 1; i <= 9; i++)
+   {
+    var cell = document.createElement('li');
+    cell.id = 'c' + i;
+    cell.addEventListener('click', playerMove, false);
+    grid.appendChild(cell);
+  }
+  
+  cells = Array.prototype.slice.call(grid.getElementsByTagName('li'));
+}
+
+// this is where the player will select mark from html 
+var players = Array.prototype.slice.call(document.querySelectorAll('input[name=player-choice]'));
+players.forEach(function(choice){
+  choice.addEventListener('click', setPlayer, false);
+});
+
+var resetButton = chooser.querySelector('button');
+resetButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  resetGrid();
+});
